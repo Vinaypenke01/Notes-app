@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
-from rest_framework.permissions import IsAuthenticated  # ✅ Import this
+from rest_framework.permissions import IsAuthenticated  
 from .models import Note
 from .serializers import UserSerializer, LoginSerializer, NoteSerializer
 
@@ -43,7 +43,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Note.objects.filter(user=self.request.user)  # ✅ Show only the logged-in user's notes
+        return Note.objects.filter(user=self.request.user)  # Show only the logged-in user's notes
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)  # ✅ Assign logged-in user automatically
+        serializer.save(user=self.request.user)  # Assign logged-in user automatically
