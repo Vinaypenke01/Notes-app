@@ -1,0 +1,168 @@
+📌 Instructions to Test the Django + DRF Project Using Postman
+Follow these steps to verify that your Django REST API is working correctly using Postman.
+
+🔹 1️⃣ Start the Django Project
+Before testing in Postman, ensure your Django server is running.
+
+sh
+Copy
+Edit
+python manage.py runserver
+The server should start at http://127.0.0.1:8000/
+
+🔹 2️⃣ Register a New User (POST /api/register/)
+Steps:
+
+Open Postman
+
+Select POST method
+
+Enter URL: http://127.0.0.1:8000/api/register/
+
+Go to Headers → Add:
+
+Content-Type: application/json
+
+Go to Body → Select raw → Enter JSON data:
+
+json
+Copy
+Edit
+{
+  "email": "user@example.com",
+  "username": "user123",
+  "password": "password123"
+}
+Click Send
+
+✅ Check if the response contains user details (201 Created status).
+
+🔹 3️⃣ Log In to Get JWT Token (POST /api/login/)
+Steps:
+
+Select POST method
+
+Enter URL: http://127.0.0.1:8000/api/login/
+
+Go to Headers → Add:
+
+Content-Type: application/json
+
+Go to Body → Select raw → Enter login details:
+
+json
+Copy
+Edit
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+Click Send
+
+✅ Check if the response contains a JWT access token (200 OK status).
+
+Copy the token from the response (needed for future requests).
+
+🔹 4️⃣ Get All Notes (GET /api/notes/)
+Steps:
+
+Select GET method
+
+Enter URL: http://127.0.0.1:8000/api/notes/
+
+Go to Headers → Add:
+
+Authorization: Bearer <your_JWT_token>
+
+Click Send
+
+✅ Check if the response returns a list of notes.
+
+🔹 5️⃣ Create a New Note (POST /api/notes/)
+Steps:
+
+Select POST method
+
+Enter URL: http://127.0.0.1:8000/api/notes/
+
+Go to Headers → Add:
+
+Authorization: Bearer <your_JWT_token>
+
+Content-Type: application/json
+
+Go to Body → Select raw → Enter note details:
+
+json
+Copy
+Edit
+{
+  "title": "First Note",
+  "content": "This is my first note."
+}
+Click Send
+
+✅ Check if the note is successfully created (201 Created status).
+
+🔹 6️⃣ Update a Note (PUT /api/notes/<id>/)
+Steps:
+
+Select PUT method
+
+Enter URL: http://127.0.0.1:8000/api/notes/1/ (Replace 1 with the note ID)
+
+Go to Headers → Add:
+
+Authorization: Bearer <your_JWT_token>
+
+Content-Type: application/json
+
+Go to Body → Select raw → Enter updated note details:
+
+json
+Copy
+Edit
+{
+  "title": "Updated Note",
+  "content": "This is the updated content."
+}
+Click Send
+
+✅ Check if the response confirms the note update (200 OK status).
+
+🔹 7️⃣ Delete a Note (DELETE /api/notes/<id>/)
+Steps:
+
+Select DELETE method
+
+Enter URL: http://127.0.0.1:8000/api/notes/1/ (Replace 1 with the note ID)
+
+Go to Headers → Add:
+
+Authorization: Bearer <your_JWT_token>
+
+Click Send
+
+✅ Check if the note is deleted (204 No Content status).
+
+📌 Summary
+Test	Endpoint	Expected Result
+Register User	POST /api/register/	User created (201 Created)
+Login User	POST /api/login/	Returns JWT token (200 OK)
+Get All Notes	GET /api/notes/	Returns list of notes (200 OK)
+Create a Note	POST /api/notes/	Note created (201 Created)
+Update a Note	PUT /api/notes/<id>/	Note updated (200 OK)
+Delete a Note	DELETE /api/notes/<id>/	Note deleted (204 No Content)
+🎯 If All Tests Pass ✅, Your Project is Working Properly!
+
+
+📌 What is Postman?
+Postman is an API testing tool that allows developers to send requests, test responses, and debug APIs without writing code. It provides a user-friendly interface to interact with REST APIs.
+
+🔹 Why Use Postman?
+✅ Easily test APIs – No need to write scripts.
+✅ Send different types of requests – GET, POST, PUT, DELETE, etc.
+✅ Use authentication methods – JWT, OAuth, API keys, etc.
+✅ Save and organize API requests – Helps in project management.
+✅ View API responses – Check status codes, headers, and response data.
+
